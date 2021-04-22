@@ -29,43 +29,6 @@
     </gazebo>
   </xacro:bluerov2_base>
 
-  <!-- camera attached to rexrov2/base_link-->
-  <gazebo reference="bluerov2/base_link"> 
-    <sensor type="camera" name="camera_out">
-      <update_rate>30.0</update_rate>
-      <camera name="head">
-	      <!-- <pose>4 -4 2 0.0 0.275643 2.356190</pose> -->
-	      <pose>0 0 .2 0 0 0</pose>
-	      <view_controller>orbit</view_controller> 
-        <horizontal_fov>1.3962634</horizontal_fov> 
-        <image>
-          <width>800</width>
-          <height>600</height>
-          <format>R8G8B8</format>
-        </image>
-        <clip>
-          <near>0.02</near>
-          <far>300</far>
-        </clip>
-      </camera>
-      <plugin name="camera_controller" filename="libCameraBboxPlugin.so">
-      <!-- <plugin name="camera_controller" filename="libcamera_bbox.so"> -->
-        <alwaysOn>true</alwaysOn>
-        <updateRate>0.0</updateRate>
-        <cameraName>bluerov2/camera_out</cameraName>
-        <imageTopicName>/bluerov2/camera_out/image_raw</imageTopicName>
-        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>bluerov2/base_link</frameName>
-        <hackBaseline>0.07</hackBaseline>
-        <distortionK1>0.0</distortionK1>
-        <distortionK2>0.0</distortionK2>
-        <distortionK3>0.0</distortionK3>
-        <distortionT1>0.0</distortionT1>
-        <distortionT2>0.0</distortionT2>
-      </plugin>
-    </sensor>
-  </gazebo>
-
   <!-- Joint state publisher plugin -->
   <xacro:default_joint_state_publisher namespace="$(arg namespace)" update_rate="10"/>
 
