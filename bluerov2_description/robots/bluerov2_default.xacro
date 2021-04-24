@@ -35,7 +35,7 @@
       <update_rate>30.0</update_rate>
       <camera name="head">
 	      <!-- <pose>4 -4 2 0.0 0.275643 2.356190</pose> -->
-	      <pose>0 0 .2 0 0 0</pose>
+	      <pose>0.1 0 -.1 0 0 0</pose>
 	      <view_controller>orbit</view_controller> 
         <horizontal_fov>1.3962634</horizontal_fov> 
         <image>
