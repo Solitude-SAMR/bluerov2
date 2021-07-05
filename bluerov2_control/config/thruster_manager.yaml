@@ -4,7 +4,7 @@ thruster_manager:
   thruster_topic_prefix: thrusters/
   thruster_topic_suffix: /input
   thruster_frame_base: thruster_
-  max_thrust: 1540.0
+  max_thrust: 20.0
   timeout: -1
   update_rate: 10
   ##################################################
@@ -22,7 +22,7 @@ thruster_manager:
   conversion_fcn: proportional
   conversion_fcn_params:
     # gain: 0.026546960744430276 # <rotorConstant>
-    gain: 0.001
+    gain: 0.00002
 
   # 1.2)  If the conversion function set for the thruster plugins is the following:
   # <conversion>
