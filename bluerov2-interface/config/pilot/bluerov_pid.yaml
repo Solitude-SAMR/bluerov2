@@ -1,0 +1,27 @@
+pilot:
+    # cascaded pid parameters
+    controller:
+        # general options
+        type: 'cascaded'
+        feedforward_model: false
+        linearized_model: false
+
+        # position gains
+        pos_x: { kp: 1.0, ki: 0.1500, kd: 0.30, lim: 2.5 }        # max out at 8 m
+        pos_y: { kp: 1.0, ki: 0.1500, kd: 0.30, lim: 2.5 }        # max out at 2 m
+        pos_z: { kp: 3.0, ki: 0.1000, kd: 0.30, lim: 6.5 }
+        pos_k: { kp: 0.750, ki: 0.1000, kd: 0.0, lim: 0.75 }
+        pos_m: { kp: 0.750, ki: 0.100, kd: 0.0, lim: 0.75 }        # 4 / pi --> max out at 45 deg
+        pos_n: { kp: 1.25, ki: 0.100, kd: 0.0, lim: 3 }        # 1 / pi --> max out at 180 deg
+
+        # velocity gains
+        vel_u: { kp: 30.0, ki: 0.300, kd: 0.00, lim: 30.0, input_lim: 2 }       # when input is 2 m produces 80 Newtons
+        vel_v: { kp: 30.0, ki: 0.300, kd: 0.00, lim: 25.0, input_lim: 1 }
+        vel_w: { kp: 60.0, ki: 0.30, kd: 0.00, lim: 25.0, input_lim: 2 }
+        vel_p: { kp: 50.00, ki: 0.0100, kd: 0.00, lim: 10.0, input_lim: 1 }
+        vel_q: { kp: 40.00, ki: 0.01, kd: 0.00, lim: 30.0, input_lim: 2.5 }
+        vel_r: { kp: 30.0, ki: 0.00, kd: 0.00, lim: 60.0, input_lim: 0.75 }
+
+        # depth compensation (takes into account trimming)
+        offset_z: 10
+        offset_m: -10

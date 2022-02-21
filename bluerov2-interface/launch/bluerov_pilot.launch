@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- default args -->
+    <arg name="verbose" default="false" />
+    <arg name="uuv_name" default="bluerov2" />
+    <arg name="ctrl_config" default="bluerov_pid.yaml" />
+    <arg name="joystick_connected" default="false" />
+    <arg name="joy_id" default="0"/>
+    <arg name="nav_topic" default="/odometry/orb/filtered"/>
+
+    <!-- load the pilot config -->
+    <rosparam command="load" file="$(find bluerov)/config/pilot/pilot_config.yaml"/>
+    <rosparam command="load" file="$(find bluerov)/config/pilot/$(arg ctrl_config)" />
+    <!-- <rosparam command="load" file="$(find vehicle_pilot)/src/pilot/src/vehicle_core/conf/vehicle_model.yaml"/> -->
+
+    <!-- start the vehicle controller -->
+    <node name="vehicle_pilot" pkg="vehicle_pilot" type="node_pilot.py" output="screen">
+        <!-- redirect output -->
+        <param name="verbose" value="$(arg verbose)" type="bool"/>
+        <param name="uuv_name" value="$(arg uuv_name)"/>
+        <param name="nav_topic" value="$(arg nav_topic)"/>
+    </node>
+
+ 		<!-- <node name="wp_pilot" pkg="vehicle_pilot" type="pilot.py" output="screen">
+        <param name="uuv_name" value="$(arg uuv_name)"/>
+        <param name="nav_topic" value="$(arg nav_topic)"/>
+        <param name="joystick_connected" value="$(arg joystick_connected)"/>
+    		<param name="recovery_position_x" value="$(arg recovery_position_x)"/>
+    		<param name="recovery_position_y" value="$(arg recovery_position_y)"/>
+    		<param name="allow_auto_recovery" value="$(arg allow_auto_recovery)"/>
+    </node> -->
+
+ 		<!-- <node name="pilot_converter" pkg="vehicle_pilot" type="pilot_converter.py" output="screen">
+        <param name="uuv_name" value="$(arg uuv_name)"/>
+        <param name="nav_topic" value="$(arg nav_topic)"/>
+    </node> -->
+
+		<group if="$(arg joystick_connected)">
+			<node pkg="joy" type="joy_node" name="joystick">
+      	<param name="dev" value="/dev/input/js$(arg joy_id)"/>
+      	<param name="autorepeat_rate" value="20"/>
+    	</node>
+		</group>
+
+</launch>

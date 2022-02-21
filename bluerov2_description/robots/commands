@@ -1,0 +1,2 @@
+rosrun xacro xacro -o bluerov2_default.urdf bluerov2_default.xacro
+gz sdf -p bluerov2_default.urdf > bluerov2_default.sdf

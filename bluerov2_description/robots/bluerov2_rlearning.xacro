@@ -32,6 +32,4 @@
   <!-- Joint state publisher plugin -->
   <xacro:default_joint_state_publisher namespace="$(arg namespace)" update_rate="10"/>
 
-  <!-- Mount a Pose 3D sensor. -->
-  <xacro:default_pose_3d namespace="bluerov2" parent_link="bluerov2/base_link" />
 </robot>

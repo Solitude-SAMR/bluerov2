@@ -1,0 +1,17 @@
+<launch>
+
+<!--  BLUEROV2 TF MODEL -->
+  <!-- x y z yaw pitch roll frame_id child_frame_id -->
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="imu_to_base" args="0 0 0 0 0 0 base_link imu_link" />
+
+   <node pkg="tf2_ros" type="static_transform_publisher" name="depth_to_base" args="-0.258 0 0 0 0 0 base_link depth_sensor_link" />
+
+   <node pkg="tf2_ros" type="static_transform_publisher" name="right_cam_to_base" args="0.058 -0.024 -0.222 0 0 0 base_link right_cam_link" />
+   <node pkg="tf2_ros" type="static_transform_publisher" name="left_to_right_cam" args="0 0.12 0 0 0 0 right_cam_link left_cam_link" />
+   <node pkg="tf2_ros" type="static_transform_publisher" name="stereo_pc_to_left_cam" args="0 0 0 -1.5707 0 -1.5707 left_cam_link suv3d" />
+
+   <node pkg="tf2_ros" type="static_transform_publisher" name="dvl_to_base" args="-0.07 0.15 -0.30 0 0 0 base_link dvl_link" />
+
+
+</launch>

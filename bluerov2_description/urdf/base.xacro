@@ -45,6 +45,8 @@
   regarding the computation of collision forces) -->
   <xacro:property name="collision_mesh_file" value="file://$(find bluerov2_description)/meshes/bluerov2_noprop.stl"/>
 
+  <xacro:property name="use_simplified_mesh" value="false"/>
+
   <!-- Vehicle macro -->
   <!-- <xacro:macro name="bluerov2_base" params="namespace debug *gazebo"> -->
   <xacro:macro name="bluerov2_base" params="namespace *gazebo">
