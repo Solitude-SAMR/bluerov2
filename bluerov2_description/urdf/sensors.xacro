@@ -31,25 +31,49 @@
     <origin xyz="0 0 0.2" rpy="0 0 0"/>
   </xacro:default_camera> -->
 
-  <link name="bluerov2/camera_link">
-    <inertial>
-      <mass value=".01"/>
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
-    </inertial>
-  </link>
-
-  <joint name="bluerov2_camera" type="fixed">
-    <parent link="bluerov2/base_link"/>
-    <child link="bluerov2/camera_link"/>
-    <origin xyz=".1 0 -.1" rpy="-1.57 0 -1.57"/>
-  </joint>
+  <gazebo reference="bluerov2/base_link">
+    <sensor type="ray" name="sonar">
+      <pose>0.25 0 0 0 0 0</pose>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>5</samples>
+            <resolution>1.0</resolution>
+            <min_angle>-0.025</min_angle>
+            <max_angle>0.025</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>5</samples>
+            <resolution>1</resolution>
+            <min_angle>-0.025</min_angle>
+            <max_angle>0.025</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <min>0.1</min>
+          <max>10</max>
+          <resolution>0.02</resolution>
+        </range>
+      </ray>
+      <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+        <gaussianNoise>0.005</gaussianNoise>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>10</updateRate>
+        <topicName>sonar</topicName>
+        <frameName>bluerov2/sonar_link</frameName>
+        <fov>0.05</fov>
+        <radiation>ultrasound</radiation>
+      </plugin>
+    </sensor>
+  </gazebo>
 
   <gazebo reference="bluerov2/base_link">
     <sensor type="camera" name="camera_out">
       <update_rate>30.0</update_rate>
       <camera name="head">
         <!-- <pose>4 -4 2 0.0 0.275643 2.356190</pose> -->
-        <pose>.1 0 -.1 0 0 0</pose>
+        <pose>.2 0 0 0 0 0</pose>
         <view_controller>orbit</view_controller> 
         <horizontal_fov>1.3962634</horizontal_fov> 
         <image>
@@ -63,7 +87,6 @@
         </clip>
       </camera>
       <plugin name="camera_controller" filename="libCameraBboxPlugin.so">
-      <!-- <plugin name="camera_controller" filename="libcamera_bbox.so"> -->
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
         <cameraName>camera_out</cameraName>
@@ -78,6 +101,48 @@
         <distortionT2>0.0</distortionT2>
       </plugin>
     </sensor>
+
+    <sensor type="contact" name="your_link_contact_sensor">
+      <contact>
+        <collision>bluerov2/base_link_collision</collision>
+        <!-- <topic>/collision_tank</topic> -->
+        <!-- <alwaysOn>true</alwaysOn> -->
+        <!-- <updateRate>10.0</updateRate> -->
+      </contact>
+      <plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>10.0</updateRate>
+      <bumperTopicName>/bluerov2/collision</bumperTopicName>
+      <frameName>world</frameName>
+      </plugin>
+    </sensor>
+
   </gazebo>
+
+  <link name="bluerov2/camera_link">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <joint name="bluerov2_camera" type="fixed">
+    <parent link="bluerov2/base_link"/>
+    <child link="bluerov2/camera_link"/>
+    <origin xyz=".2 0 0" rpy="-1.57 0 -1.57"/>
+  </joint>
+
+  <link name="bluerov2/sonar_link">
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <joint name="bluerov2_sonar" type="fixed">
+    <parent link="bluerov2/base_link"/>
+    <child link="bluerov2/sonar_link"/>
+    <origin xyz=".1 0 0" rpy="0 0 0"/>
+  </joint>
 
 </robot>
