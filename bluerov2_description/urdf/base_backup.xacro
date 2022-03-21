@@ -23,11 +23,11 @@
   <!-- Volume -->
   <!-- <xacro:property name="volume" value="0.011054"/> -->
 
-  <xacro:property name="mass" value="26.75"/>
-  <xacro:property name="x_size" value="0.457"/>
-  <xacro:property name="y_size" value="0.338"/>
-  <xacro:property name="z_size" value="0.254"/>
-  <xacro:property name="volume" value="0.0261"/>
+  <xacro:property name="mass" value="20.5"/>
+  <xacro:property name="x_size" value="0.45"/>
+  <xacro:property name="y_size" value="0.35"/>
+  <xacro:property name="z_size" value="0.35"/>
+  <xacro:property name="volume" value="0.02"/>
 
   <!-- Center of gravity -->
   <xacro:property name="cog" value="0 0 0"/>
@@ -36,9 +36,9 @@
   The original values, [0.0822, -0.00773, 0.3872] however, seem to
   assume NWU (otherwise cob is below cog?). 0.155
   -->
-  <xacro:property name="cob" value="0 0 0.05"/>
+  <xacro:property name="cob" value="0 0 0.15"/>
   <!-- Fluid density -->
-  <xacro:property name="rho" value="1000"/>
+  <xacro:property name="rho" value="1028"/>
   <!--
     Visual mesh file for the vehicle, usually in DAE (Collada) format. Be sure to store the
     mesh with the origin of the mesh on the same position of the center of mass, otherwise
@@ -69,9 +69,9 @@
           <origin xyz="${cog}" rpy="0 0 0"/>
           <!-- <inertia ixx="525.39" ixy="1.44" ixz="33.41" iyy="794.20" iyz="2.6" izz="691.23"/> -->
           <inertia
-            ixx="0.7301" ixy="0.002048" ixz="0.003906"
-            iyy="0.7705" iyz="0.0018"
-            izz="0.8024" />
+            ixx="${0.2*mass*y_size*y_size + 0.2*mass*z_size*z_size}" ixy="0.0" ixz="0.0"
+            iyy="${0.2*mass*x_size*x_size + 0.2*mass*z_size*z_size}" iyz="0.0"
+            izz="${0.2*mass*x_size*x_size + 0.2*mass*y_size*y_size}" />
         </inertial>
 
         <!-- This visual geometry representation can be used when running

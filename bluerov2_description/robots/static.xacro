@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot name="bluerov2">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="file://$(find bluerov2_description)/meshes/bluerov2_noprop.dae" scale="1 1 1" />
+      </geometry>
+    </visual>
+  </link>
+</robot>
